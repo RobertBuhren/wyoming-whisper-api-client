@@ -69,6 +69,7 @@ class WhisperAPIEventHandler(AsyncEventHandler):
                         text = r.json()['text']
                         
             text = re.sub(r'\[.*?\]|\(.*?\)', '', text).strip()
+            text = re.sub(r'thank you', '', text, flags=re.I)
             _LOGGER.info(text)
 
             await self.write_event(Transcript(text=text).event())
